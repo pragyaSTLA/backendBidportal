@@ -1,11 +1,16 @@
 package com.portal.bid.entity;
 
-import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Pattern;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "opportunity")
@@ -15,141 +20,138 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @JsonProperty("priorityBid")
+    @JsonProperty("priority_bid")
     @Column(name = "priority_bid")
     private String priorityBid;
 
-//    @JsonProperty("obFy")
+    @JsonProperty("ob_fy")
     @Column(name = "ob_fy")
     private String obFy;
 
-//    @JsonProperty("obQtr")
+    @JsonProperty("ob_qtr")
     @Column(name = "ob_qtr")
     private String obQtr;
 
-//    @JsonProperty("obMmm")
+    @JsonProperty("ob_mmm")
     @Column(name = "ob_mmm")
     private String obMmm;
 
-//    @JsonProperty("priority")
+    @JsonProperty("priority")
     @Column(name = "priority")
     private String priority;
 
-//    @JsonProperty("opportunity")
+    @JsonProperty("opportunity")
     @Column(name = "opportunity")
     private String opportunity;
 
-//    @JsonProperty("opportunityType")
+    @JsonProperty("opportunity_type")
     @Column(name = "opportunity_type")
     private String opportunityType;
 
-//    @JsonProperty("amountInrCrMax")
+    @JsonProperty("amount_inr_cr_max")
     @Column(name = "amount_inr_cr_max")
     private BigDecimal amountInrCrMax;
 
-//    @JsonProperty("amountInrCrMin")
+    @JsonProperty("amount_inr_cr_min")
     @Column(name = "amount_inr_cr_min")
     private BigDecimal amountInrCrMin;
 
-    @JsonProperty("revInObQtr")
+    @JsonProperty("rev_in_ob_qtr")
     @Column(name = "rev_in_ob_qtr")
     private BigDecimal revInObQtr;
 
-    @JsonProperty("revInObQtrPlus1")
+    @JsonProperty("rev_in_ob_qtr_plus_1")
     @Column(name = "rev_in_ob_qtr_plus_1")
     private BigDecimal revInObQtrPlus1;
 
-    @JsonProperty("businessUnit")
+    @JsonProperty("business_unit")
     @Column(name = "business_unit")
     private String businessUnit;
 
-    @JsonProperty("industrySegment")
+    @JsonProperty("industry_segment")
     @Column(name = "industry_segment")
     private String industrySegment;
 
-    @JsonProperty("primaryOfferingSegment")
+    @JsonProperty("primary_offering_segment")
     @Column(name = "primary_offering_segment")
     private String primaryOfferingSegment;
 
-    @JsonProperty("secondaryOfferingSegment")
+    @JsonProperty("secondary_offering_segment")
     @Column(name = "secondary_offering_segment")
     private String secondaryOfferingSegment;
 
-    @JsonProperty("partQuarter")
+    @JsonProperty("part_quarter")
     @Column(name = "part_quarter")
     private String partQuarter;
 
-    @JsonProperty("partMonth")
+    @JsonProperty("part_month")
     @Column(name = "part_month")
     private String partMonth;
 
-    @JsonProperty("projectTenureMonths")
+    @JsonProperty("project_tenure_months")
     @Column(name = "project_tenure_months")
     private Integer projectTenureMonths;
 
-    @JsonProperty("estCapexInrCr")
+    @JsonProperty("est_capex_inr_cr")
     @Column(name = "est_capex_inr_cr")
     private BigDecimal estCapexInrCr;
 
-    @JsonProperty("estOpexInrCr")
+    @JsonProperty("est_opex_inr_cr")
     @Column(name = "est_opex_inr_cr")
     private BigDecimal estOpexInrCr;
 
-    @JsonProperty("opexTenureMonths")
+    @JsonProperty("opex_tenure_months")
     @Column(name = "opex_tenure_months")
     private Integer opexTenureMonths;
 
-    @JsonProperty("dealStatus")
+    @JsonProperty("deal_status")
     @Column(name = "deal_status")
-    private  String dealStatus;
+    private String dealStatus;
 
-    @JsonProperty("goNoGoStatus")
+    @JsonProperty("go_no_go_status")
     @Column(name = "go_no_go_status")
     private String goNoGoStatus;
 
-    @JsonProperty("goNoGoDate")
+    @JsonProperty("go_no_go_date")
     @Column(name = "go_no_go_date")
     private LocalDate goNoGoDate;
 
-    @JsonProperty("solutionReadiness")
+    @JsonProperty("solution_readiness")
     @Column(name = "solution_readiness")
     private String solutionReadiness;
 
-    @JsonProperty("customerAlignment")
+    @JsonProperty("customer_alignment")
     @Column(name = "customer_alignment")
     private String customerAlignment;
 
-    @JsonProperty("stlPreparedness")
+    @JsonProperty("stl_preparedness")
     @Column(name = "stl_preparedness")
     private String stlPreparedness;
 
-    @JsonProperty("readinessAsPerTimeline")
+    @JsonProperty("readiness_as_per_timeline")
     @Column(name = "readiness_as_per_timeline")
     private String readinessAsPerTimeline;
 
-    @JsonProperty("gmPercentage")
+    @JsonProperty("gm_percentage")
     @Column(name = "gm_percentage")
 //    @Pattern(regexp = "^\\d+(\\.\\d+)?%?$", message = "gmPercentage must be a number or percentage (e.g., 50 or 50.5%)")
     private String gmPercentage;
-
-
 
     @JsonProperty("probability")
     @Column(name = "probability")
 //    @Pattern(regexp = "^\\d+(\\.\\d+)?%?$", message = "Probability must be a number or percentage (e.g., 50 or 50.5%)")
     private String probability;
 
-
-    @JsonProperty("salesRole")
+    @JsonProperty("sales_role")
     @Column(name = "sales_role")
     private String salesRole;
 
-    @JsonProperty("primaryOwner")
+    @JsonProperty("primary_owner")
     @Column(name = "primary_owner")
 //    @Pattern(regexp = "^[A-Za-z]+$", message = "primary Owner must contain only alphabetic characters")
     private String primaryOwner;
 
-    @JsonProperty("leaderForAircover")
+    @JsonProperty("leader_for_aircover")
     @Column(name = "leader_for_aircover")
 //    @Pattern(regexp = "^[A-Za-z]+$", message = "Leader for aircover must contain only alphabetic characters")
     private String leaderForAircover;
@@ -159,42 +161,40 @@ public class Form {
 //    @Pattern(regexp = "^[A-Za-z]+$", message = "Source must contain only alphabetic characters")
     private String source;
 
-    @JsonProperty("sourcePerson")
+    @JsonProperty("source_person")
     @Column(name = "source_person")
 //    @Pattern(regexp = "^[A-Za-z]+$", message = "Source person must contain only alphabetic characters")
     private String sourcePerson;
 
-
-    @JsonProperty("leadReceivedDate")
+    @JsonProperty("lead_received_date")
     @Column(name = "lead_received_date")
     private LocalDate leadReceivedDate;
 
-    @JsonProperty("releaseDate")
+    @JsonProperty("release_date")
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @JsonProperty("submissionDate")
+    @JsonProperty("submission_date")
     @Column(name = "submission_date")
     private LocalDate submissionDate;
 
-    @JsonProperty("decisionDate")
+    @JsonProperty("decision_date")
     @Column(name = "decision_date")
     private LocalDate decisionDate;
 
-    @JsonProperty("additionalRemarks")
+    @JsonProperty("additional_remarks")
     @Column(name = "additional_remarks")
     private String additionalRemarks;
 
-    @JsonProperty("tenderNo")
+    @JsonProperty("tender_no")
     @Column(name = "tender_no")
     private String tenderNo;
 
-    @JsonProperty("scopeOfWork")
+    @JsonProperty("scope_of_work")
     @Column(name = "scope_of_work", columnDefinition = "TEXT")
     private String scopeOfWork;
 
     // Getters and Setters
-
 
     public Long getId() {
         return id;
@@ -436,11 +436,11 @@ public class Form {
         this.gmPercentage = gmPercentage;
     }
 
-    public @Pattern(regexp = "^\\d+(\\.\\d+)?%?$", message = "Probability must be a number or percentage (e.g., 50 or 50.5%)") String getProbability() {
+    public String getProbability() {
         return probability;
     }
 
-    public void setProbability(@Pattern(regexp = "^\\d+(\\.\\d+)?%?$", message = "Probability must be a number or percentage (e.g., 50 or 50.5%)") String probability) {
+    public void setProbability(String probability) {
         this.probability = probability;
     }
 
@@ -452,35 +452,35 @@ public class Form {
         this.salesRole = salesRole;
     }
 
-    public @Pattern(regexp = "^[A-Za-z]+$", message = "primary Owner must contain only alphabetic characters") String getPrimaryOwner() {
+    public String getPrimaryOwner() {
         return primaryOwner;
     }
 
-    public void setPrimaryOwner(@Pattern(regexp = "^[A-Za-z]+$", message = "primary Owner must contain only alphabetic characters") String primaryOwner) {
+    public void setPrimaryOwner(String primaryOwner) {
         this.primaryOwner = primaryOwner;
     }
 
-    public @Pattern(regexp = "^[A-Za-z]+$", message = "Leader for aircover must contain only alphabetic characters") String getLeaderForAircover() {
+    public String getLeaderForAircover() {
         return leaderForAircover;
     }
 
-    public void setLeaderForAircover(@Pattern(regexp = "^[A-Za-z]+$", message = "Leader for aircover must contain only alphabetic characters") String leaderForAircover) {
+    public void setLeaderForAircover(String leaderForAircover) {
         this.leaderForAircover = leaderForAircover;
     }
 
-    public @Pattern(regexp = "^[A-Za-z]+$", message = "Source must contain only alphabetic characters") String getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(@Pattern(regexp = "^[A-Za-z]+$", message = "Source must contain only alphabetic characters") String source) {
+    public void setSource(String source) {
         this.source = source;
     }
 
-    public @Pattern(regexp = "^[A-Za-z]+$", message = "Source person must contain only alphabetic characters") String getSourcePerson() {
+    public String getSourcePerson() {
         return sourcePerson;
     }
 
-    public void setSourcePerson(@Pattern(regexp = "^[A-Za-z]+$", message = "Source person must contain only alphabetic characters") String sourcePerson) {
+    public void setSourcePerson(String sourcePerson) {
         this.sourcePerson = sourcePerson;
     }
 

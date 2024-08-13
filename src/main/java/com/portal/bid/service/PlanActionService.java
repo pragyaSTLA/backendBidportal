@@ -1,8 +1,8 @@
 package com.portal.bid.service;
 
-import com.portal.bid.entity.PlanAction;
-
 import java.util.List;
+
+import com.portal.bid.entity.PlanAction;
 
 public interface PlanActionService {
 
@@ -11,6 +11,7 @@ public interface PlanActionService {
         PlanAction getPlanById(Long id);
         void deletePlan(Long id);
         List<PlanAction> getAllPlans();
+        public List<PlanAction> getAllPlansByFormId(Long formId);
 
 
 }

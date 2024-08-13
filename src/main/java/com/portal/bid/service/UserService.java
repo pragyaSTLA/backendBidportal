@@ -1,3 +1,5 @@
+
+
 package com.portal.bid.service;
 
 import com.portal.bid.entity.User;
@@ -10,4 +12,6 @@ public interface UserService {
     Optional<User> getUserById(Long id);
     List<User> getAllUsers();
     Optional<User> updateUser(Long id, User userDetails);
+
+    void loginUser(String email, String passwordHash,User u);
 }

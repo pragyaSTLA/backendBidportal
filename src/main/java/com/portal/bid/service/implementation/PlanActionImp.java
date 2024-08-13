@@ -1,13 +1,16 @@
 package com.portal.bid.service.implementation;
 
-import com.portal.bid.entity.PlanAction;
-import com.portal.bid.repository.PlanActionRepository;
-import com.portal.bid.service.PlanActionService;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.portal.bid.entity.PlanAction;
+import com.portal.bid.repository.PlanActionRepository;
+import com.portal.bid.service.PlanActionService;
 
 @Service
 public class PlanActionImp implements PlanActionService {
@@ -26,12 +29,8 @@ public class PlanActionImp implements PlanActionService {
         Optional<PlanAction> existingPlan = planRepository.findById(id);
         if (existingPlan.isPresent()) {
             PlanAction updatedPlan = existingPlan.get();
-            updatedPlan.setDate(plan.getDate());
-            updatedPlan.setPlan(plan.getPlan());
             updatedPlan.setAction(plan.getAction());
-            updatedPlan.setCreatedBy(plan.getCreatedBy());
             updatedPlan.setUpdatedAt(LocalDateTime.now());
-            updatedPlan.setUpdatedBy(plan.getUpdatedBy());
             return planRepository.save(updatedPlan);
         }
         return null;
@@ -50,5 +49,12 @@ public class PlanActionImp implements PlanActionService {
     @Override
     public List<PlanAction> getAllPlans() {
         return planRepository.findAll();
+    }
+
+    @Override
+    public List<PlanAction> getAllPlansByFormId(Long formId) {
+        return planRepository.findAll().stream()
+                .filter(plan -> plan.getFormId().equals(formId))
+                .collect(Collectors.toList());
     }
 }

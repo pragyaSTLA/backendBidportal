@@ -11,7 +11,7 @@ public class BusinessUnit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "business_unit", nullable = false)
+    @Column(name = "business_unit", nullable = true)
     private String businessUnit;
 
     @Column(name = "created_at", updatable = false)

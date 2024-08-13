@@ -1,6 +1,7 @@
 package com.portal.bid.service.implementation;
 
 import com.portal.bid.entity.GoNoGoStatus;
+import com.portal.bid.entity.PlanAction;
 import com.portal.bid.repository.GoNoGoStatusRepository;
 import com.portal.bid.service.GoNoGoStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GoNoGoStatusImp implements GoNoGoStatusService {
@@ -49,5 +51,12 @@ public class GoNoGoStatusImp implements GoNoGoStatusService {
     @Override
     public List<GoNoGoStatus> findAll() {
         return goNoGoStatusRepository.findAll();
+    }
+
+    @Override
+    public List<GoNoGoStatus> getAllGoNoGoStatus(Long formId) {
+        return goNoGoStatusRepository.findAll().stream()
+                .filter(plan -> plan.getFormId().equals(formId))
+                .collect(Collectors.toList());
     }
 }

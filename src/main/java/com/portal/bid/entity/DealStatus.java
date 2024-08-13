@@ -1,5 +1,6 @@
 package com.portal.bid.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,20 +13,28 @@ public class DealStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("form_id")
     @Column(name = "form_id", nullable = false)
     private Long form_id;
 
+
+    @JsonProperty("deal_status")
     @Column(name = "deal_status", nullable = false)
     private String deal_status;
 
+    @JsonProperty("created_at")
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @JsonProperty("created_by")
     @Column(name = "created_by", updatable = false,nullable = false)
     private String createdBy;
 
+    @JsonProperty("updated_at")
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @JsonProperty("status")
     @Column(name = "status", nullable = false)
     private String status;
 

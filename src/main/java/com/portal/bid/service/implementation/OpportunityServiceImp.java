@@ -18,7 +18,7 @@ public class OpportunityServiceImp implements OpportunityService {
     private FormRepository formRespository;
     @Override
     public Form saveOpportunity(Form f) {
-       return formRespository.save(f);
+        return formRespository.save(f);
     }
 
     @Override
@@ -32,14 +32,14 @@ public class OpportunityServiceImp implements OpportunityService {
     }
 
     @Override
-    public List<Form> getFilteredOpportunities(String status, String priority, String businessUnit,
+    public List<Form> getFilteredOpportunities(String status, String priority,String ob_fy,  String businessUnit,
                                                String industrySegment, LocalDate startDate, LocalDate endDate,
                                                String responsiblePerson, String customer,
                                                BigDecimal dealValueMin, BigDecimal dealValueMax) {
         List<Form> allOpportunities = getAllOpportunities();
 
         return allOpportunities.stream()
-              .peek(opportunity -> System.out.println("date: " + opportunity.getSubmissionDate())) // Print dealStatus for debugging
+                .peek(opportunity -> System.out.println("date: " + opportunity.getSubmissionDate())) // Print dealStatus for debugging
                 .filter(opportunity -> {
                     if (status != null) {
                         String dealStatus = opportunity.getDealStatus();
@@ -60,6 +60,19 @@ public class OpportunityServiceImp implements OpportunityService {
                         if (oppPriority != null) {
                             String trimmedPriority = oppPriority.trim();
                             String trimmedFilterPriority = priority.trim();
+                            System.out.println("Comparing priority: " + trimmedPriority + " with priority: " + trimmedFilterPriority);
+                            boolean result = trimmedPriority.equalsIgnoreCase(trimmedFilterPriority);
+                            System.out.println("Comparison result: " + result);
+                            return result;
+                        }
+                    }
+                    return true;
+                }).filter(opportunity -> {
+                    if (ob_fy != null) {
+                        String oppPriority = opportunity.getObFy();
+                        if (oppPriority != null) {
+                            String trimmedPriority = oppPriority.trim();
+                            String trimmedFilterPriority = ob_fy.trim();
                             System.out.println("Comparing priority: " + trimmedPriority + " with priority: " + trimmedFilterPriority);
                             boolean result = trimmedPriority.equalsIgnoreCase(trimmedFilterPriority);
                             System.out.println("Comparison result: " + result);
@@ -175,7 +188,30 @@ public class OpportunityServiceImp implements OpportunityService {
     }
 
 
+    @Override
+    public Form updateOpportunity(Long id, Form updatedOpportunity) {
+        return formRespository.findById(id)
+                .map(existingOpportunity -> {
+                    // Update the fields of the existing opportunity with the new data
+                    if(updatedOpportunity.getGoNoGoDate()!=null){
+                        existingOpportunity.setGoNoGoDate(updatedOpportunity.getGoNoGoDate());
+                    }
+                    if(updatedOpportunity.getGoNoGoStatus()!=null){
+                        existingOpportunity.setGoNoGoStatus(updatedOpportunity.getGoNoGoStatus());
+                    }
+                    if(updatedOpportunity.getDealStatus()!=null){
+                        existingOpportunity.setDealStatus(updatedOpportunity.getDealStatus());
+                    }
+                    if(updatedOpportunity.getAmountInrCrMax()!=null){
+                        existingOpportunity.setAmountInrCrMax(updatedOpportunity.getAmountInrCrMax());
+                    }
+                    existingOpportunity.setAdditionalRemarks(updatedOpportunity.getAdditionalRemarks());
 
+                    // Save the updated opportunity back to the repository
+                    return formRespository.save(existingOpportunity);
+                })
+                .orElse(null); // Return null if the opportunity with the given ID does not exist
+    }
 
 
 }

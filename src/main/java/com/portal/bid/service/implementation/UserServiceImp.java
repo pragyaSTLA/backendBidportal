@@ -18,10 +18,16 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
     @Override
     public User createUser(User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+        String encodedPassword = passwordEncoder.encode(user.getPasswordHash());
+        user.setPasswordHash(encodedPassword);
+
+        // Save the user to the repository
         return userRepository.save(user);
     }
 
@@ -54,5 +60,35 @@ public class UserServiceImp implements UserService {
             }
             return userRepository.save(user);
         });
+    }
+
+
+
+    public void loginUser(String email, String plainPassword,User u) {
+        // Retrieve the user by email from the database
+        User storedUser = userRepository.findByEmail(email);
+        System.out.println(storedUser); // Logs the user object
+
+        // Check if the user exists
+        if (storedUser == null) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+        String encodedPassword = passwordEncoder.encode(u.getPasswordHash());
+//        user.setPasswordHash(encodedPassword);
+
+        // Verify the password
+        System.out.println(encodedPassword + " " + storedUser.getPasswordHash());
+        System.out.println(plainPassword+ " " + storedUser.getPasswordHash());
+
+
+        if (!passwordEncoder.matches(encodedPassword, storedUser.getPasswordHash())) {
+            System.out.println("nbdfvddfkj");
+        }
+        if (!passwordEncoder.matches(plainPassword, storedUser.getPasswordHash())) {
+            System.out.println(plainPassword + " " + storedUser.getPasswordHash());
+            throw new BadCredentialsException("Invalid password");
+        }
+
+        // Proceed with additional login steps if necessary
     }
 }

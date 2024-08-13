@@ -124,19 +124,6 @@ public class User {
         this.role = role;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.passwordHash = passwordEncoder.encode(password);
-    }
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -155,6 +142,13 @@ public class User {
 
     public enum Role {
         ADMIN, USER, GUEST
+    }
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public enum Status {

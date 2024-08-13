@@ -16,4 +16,5 @@ public interface DealStatusService {
     DealStatus updateDealStatus(Long id, DealStatus dealStatus);
 
     boolean deleteDealStatus(Long id);
+    public List<DealStatus> getAllDealStatus1(Long formId);
 }
