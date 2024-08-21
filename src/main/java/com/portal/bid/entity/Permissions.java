@@ -12,11 +12,11 @@ public class Permissions {
     private int id ;
 
 
-    @Column(name = "permission_name",nullable = false)
+    @Column(name = "permission_name")
     private String permissionName;
-    @Column(name = "created_at",nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @Column(name = "created_by",nullable = false)
+    @Column(name = "created_by",updatable = false)
     private String createdBy;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
