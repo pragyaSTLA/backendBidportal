@@ -4,46 +4,39 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "priority")
-public class Priority {
+@Table(name = "deal")
+public class Deal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String priority;
+    @Column(name = "deal_status")
+    private String dealStatus;
 
-    @Column(name = "created_at", nullable = true, updatable = true)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "created_by", nullable = true)
-    private String createdBy;
-
-    @Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "updated_by", nullable = true)
-    private String updatedBy;
-
 //    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String status;
 
 //    public enum Status {
-//        Active,
-//        Inactive
+//        ACTIVE,
+//        INACTIVE
 //    }
-
-
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        updatedAt =LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
+
     @PreUpdate
-    protected void onUpdate(){
+    protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 
@@ -57,12 +50,12 @@ public class Priority {
         this.id = id;
     }
 
-    public String getPriority() {
-        return priority;
+    public String getDealStatus() {
+        return dealStatus;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setDealStatus(String dealStatus) {
+        this.dealStatus = dealStatus;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -73,28 +66,12 @@ public class Priority {
         this.createdAt = createdAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public String getStatus() {

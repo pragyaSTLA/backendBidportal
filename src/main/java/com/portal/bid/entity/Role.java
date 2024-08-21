@@ -25,7 +25,7 @@ public class Role {
     private Status status;
 
     public enum Status {
-        Active, Inactive
+        ACTIVE, INACTIVE
     }
 
     @PrePersist

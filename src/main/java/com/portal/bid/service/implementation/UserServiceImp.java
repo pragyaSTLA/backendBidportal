@@ -51,7 +51,7 @@ public class UserServiceImp implements UserService {
             user.setEmail(userDetails.getEmail());
             user.setMobile(userDetails.getMobile());
             user.setDepartmentId(userDetails.getDepartmentId());
-            user.setRole(userDetails.getRole());
+//            user.setRole(userDetails.getRole());
             user.setStatus(userDetails.getStatus());
             // Only update the password if a new password is provided
             if (userDetails.getPasswordHash() != null && !userDetails.getPasswordHash().isEmpty()) {

@@ -12,19 +12,20 @@ public class Fy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "ob_fy",nullable = false)
+    @Column(name = "ob_fy",nullable = true)
     private int obFy;
 
-    @Column(name="created_at",nullable = false)
+    @Column(name="created_at",nullable = true)
     private LocalDateTime createdAt;
-    @Column(name="updaed_at")
+
+    @Column(name="updated_at",nullable = true)
     private LocalDateTime updatedAt;
 
-    @Column(name="created_by",nullable = false)
+    @Column(name="created_by",nullable = true)
     private String createdBy;
 
-    @Column(name="updated_by")
-    private LocalDateTime updatedBy;
+    @Column(name="updated_by",nullable = true)
+    private String updatedBy;
 
     @PrePersist
     protected void onCreate() {
@@ -76,11 +77,11 @@ public class Fy {
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(LocalDateTime updatedBy) {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 }

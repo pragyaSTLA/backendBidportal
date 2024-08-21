@@ -16,23 +16,26 @@ public class FyController {
 
     @Autowired
     private FyService fyService;
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public List<Fy> getAllFys() {
         return fyService.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Fy> getFyById(@PathVariable int id) {
         Optional<Fy> fy = fyService.findById(id);
         return fy.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public Fy createFy(@RequestBody Fy fy) {
         return fyService.save(fy);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Fy> updateFy(@PathVariable int id, @RequestBody Fy fyDetails) {
         Optional<Fy> fyOptional = fyService.findById(id);
@@ -49,6 +52,7 @@ public class FyController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFy(@PathVariable int id) {
         Optional<Fy> fyOptional = fyService.findById(id);

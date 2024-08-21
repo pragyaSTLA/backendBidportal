@@ -18,6 +18,7 @@ public class PriorityController {
     @Autowired
     private PriorityService service;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<Priority> createPriority(@RequestBody Priority priority) {
         priority.setCreatedAt(LocalDateTime.now());
@@ -25,6 +26,7 @@ public class PriorityController {
         return new ResponseEntity<>(createdPriority, HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Priority> updatePriority(@PathVariable Integer id, @RequestBody Priority priority) {
         priority.setUpdatedAt(LocalDateTime.now());
@@ -41,6 +43,7 @@ public class PriorityController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Priority> getPriorityById(@PathVariable Integer id) {
         Optional<Priority> priority = service.findById(id);
@@ -48,6 +51,7 @@ public class PriorityController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePriority(@PathVariable Integer id) {
         Optional<Priority> priority = service.findById(id);
@@ -59,6 +63,7 @@ public class PriorityController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Priority>> getAllPriorities() {
         List<Priority> priorities = service.findAll();

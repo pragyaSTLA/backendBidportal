@@ -30,9 +30,9 @@ public class User {
     @Column(name = "department_id")
     private int departmentId;
 
-    @Column(name = "role_is", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+//    @Column(name = "role_id", nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
@@ -116,13 +116,13 @@ public class User {
         this.departmentId = departmentId;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+//    public Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Role role) {
+//        this.role = role;
+//    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -140,9 +140,9 @@ public class User {
         this.status = status;
     }
 
-    public enum Role {
-        ADMIN, USER, GUEST
-    }
+//    public enum Role {
+//        ADMIN, USER, GUEST
+//    }
     public String getPasswordHash() {
         return passwordHash;
     }

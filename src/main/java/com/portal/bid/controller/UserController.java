@@ -42,7 +42,7 @@ public class UserController {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
@@ -52,12 +52,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         Optional<User> updatedUser = userService.updateUser(id, userDetails);
