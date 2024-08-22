@@ -116,14 +116,6 @@ public class User {
         this.departmentId = departmentId;
     }
 
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -140,9 +132,7 @@ public class User {
         this.status = status;
     }
 
-//    public enum Role {
-//        ADMIN, USER, GUEST
-//    }
+
     public String getPasswordHash() {
         return passwordHash;
     }
