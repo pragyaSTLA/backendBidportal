@@ -16,28 +16,28 @@ public class DealController {
     @Autowired
     private DealService dealService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<Deal> createDeal(@RequestBody Deal deal) {
         Deal createdDeal = dealService.createDeal(deal);
         return new ResponseEntity<>(createdDeal, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Deal>> getAllDeals() {
         List<Deal> deals = dealService.getAllDeals();
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Deal> updateDeal(@PathVariable Integer id, @RequestBody Deal dealDetails) {
         Deal updatedDeal = dealService.updateDeal(id, dealDetails);
         return updatedDeal != null ? new ResponseEntity<>(updatedDeal, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDeal(@PathVariable Integer id) {
         boolean isDeleted = dealService.deleteDeal(id);

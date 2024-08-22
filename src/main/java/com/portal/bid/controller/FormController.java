@@ -23,7 +23,7 @@ public class FormController{
     @Autowired
     private OpportunityServiceImp opportunityService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<Form> createOpportunity(@RequestBody Form opportunity) {
 
@@ -31,14 +31,14 @@ public class FormController{
         return ResponseEntity.ok(savedOpportunity);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Form>> getAllOpportunities() {
         List<Form> opportunities = opportunityService.getAllOpportunities();
         return ResponseEntity.ok(opportunities);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Form> getOpportunityById(@PathVariable Long id) {
         Form opportunity = opportunityService.getOpportunityById(id);
@@ -49,7 +49,7 @@ public class FormController{
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Form> updateOpportunity(@PathVariable Long id, @RequestBody Form updatedOpportunity) {
         Form updated = opportunityService.updateOpportunity(id, updatedOpportunity);
@@ -59,7 +59,7 @@ public class FormController{
             return ResponseEntity.notFound().build();
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/filtered")
     public ResponseEntity<?> getOpportunities(
             @RequestParam(required = false) String status,

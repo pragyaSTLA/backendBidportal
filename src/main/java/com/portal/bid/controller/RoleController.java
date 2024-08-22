@@ -17,20 +17,20 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public List<Role> getAllRoles() {
         return roleService.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Role> getRoleById(@PathVariable int id) {
         Optional<Role> role = roleService.findById(id);
         return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public Role createRole(@RequestBody Role role) {
         role.setCreatedAt(LocalDateTime.now());
@@ -38,7 +38,7 @@ public class RoleController {
         return roleService.save(role);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Role> updateRole(@PathVariable int id, @RequestBody Role roleDetails) {
         Optional<Role> roleOptional = roleService.findById(id);
@@ -54,7 +54,7 @@ public class RoleController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRole(@PathVariable int id) {
         Optional<Role> roleOptional = roleService.findById(id);

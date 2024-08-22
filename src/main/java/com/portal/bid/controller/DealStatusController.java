@@ -19,7 +19,7 @@ public class DealStatusController {
     @Autowired
     private DealStatusService dealStatusService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<DealStatus> createDealStatus(@RequestBody DealStatus dealStatus) {
         System.out.println("herrrr1");
@@ -29,7 +29,7 @@ public class DealStatusController {
         return new ResponseEntity<>(createdUnit, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<DealStatus> getDealStatusByIdById(@PathVariable Long id) {
         DealStatus unit = dealStatusService.getDealStatusById(id);
@@ -43,21 +43,21 @@ public class DealStatusController {
 //        return new ResponseEntity<>(units, HttpStatus.OK);
 //    }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<DealStatus> updateDealStatus(@PathVariable Long id, @RequestBody DealStatus dealStatus) {
         DealStatus updatedUnit = dealStatusService.updateDealStatus(id, dealStatus);
         return updatedUnit != null ? new ResponseEntity<>(updatedUnit, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDealStatus(@PathVariable Long id) {
         boolean isDeleted = dealStatusService.deleteDealStatus(id);
         return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     ResponseEntity<List<DealStatus>>  getAll(@RequestParam(required = false) Long form_id){
         List<DealStatus> entryFound;

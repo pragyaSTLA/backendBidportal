@@ -21,28 +21,28 @@ public class PermissionsController {
         this.permissionsService = permissionsService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Permissions>> getAllPermissions() {
         List<Permissions> permissions = permissionsService.getAllPermissions();
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Permissions> getPermissionById(@PathVariable int id) {
         Optional<Permissions> permission = permissionsService.getPermissionById(id);
         return permission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<Permissions> createPermission(@RequestBody Permissions permission) {
         Permissions createdPermission = permissionsService.createPermission(permission);
         return new ResponseEntity<>(createdPermission, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Permissions> updatePermission(@PathVariable int id, @RequestBody Permissions permission) {
         Optional<Permissions> existingPermissionOpt = permissionsService.getPermissionById(id);
@@ -70,7 +70,7 @@ public class PermissionsController {
         return ResponseEntity.notFound().build();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePermission(@PathVariable int id) {
         boolean deleted = permissionsService.deletePermission(id);

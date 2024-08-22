@@ -26,7 +26,7 @@ public class PlanActionController {
     @Autowired
     private PlanActionService planService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<PlanAction> createPlan(@RequestBody PlanAction plan) {
         plan.setCreatedAt(LocalDateTime.now());
@@ -34,7 +34,7 @@ public class PlanActionController {
         return new ResponseEntity<>(createdPlan, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<PlanAction>> getAllPlans(@RequestParam(required = false) Long form_id) {
         List<PlanAction> plans;
@@ -46,7 +46,7 @@ public class PlanActionController {
         return new ResponseEntity<>(plans, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<PlanAction> updatePlan(@PathVariable Long id, @RequestBody PlanAction plan) {
 //        if (plan.getUpdatedAt() == null || plan.getUpdatedBy() == null || plan.getAction() == null) {
@@ -55,13 +55,13 @@ public class PlanActionController {
         PlanAction updatedPlan = planService.updatePlan(id, plan);
         return updatedPlan != null ? new ResponseEntity<>(updatedPlan, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<PlanAction> getPlanById(@PathVariable Long id) {
         PlanAction plan = planService.getPlanById(id);
         return plan != null ? new ResponseEntity<>(plan, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable Long id) {
         planService.deletePlan(id);

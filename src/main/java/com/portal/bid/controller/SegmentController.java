@@ -19,7 +19,7 @@ public class SegmentController {
 //    private BusinessSegment segment ;
     private BusinessSegmentService  businessSegmentService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<BusinessSegment> createOpportunity(@RequestBody BusinessSegment b) {
 
@@ -28,7 +28,7 @@ public class SegmentController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<BusinessSegment>> getAllBusinessSegments() {
 
@@ -36,14 +36,14 @@ public class SegmentController {
         return new ResponseEntity<>(segments, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<BusinessSegment> updateBusinessSegment(@PathVariable Long id, @RequestBody BusinessSegment businessSegment) {
         BusinessSegment updatedSegment = businessSegmentService.updateBusinessSegment(id, businessSegment);
         return updatedSegment != null ? new ResponseEntity<>(updatedSegment, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBusinessSegment(@PathVariable Long id) {
         boolean isDeleted = businessSegmentService.deleteBusinessSegment(id);
