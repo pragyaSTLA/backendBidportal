@@ -17,19 +17,20 @@ public class UserRolesController {
     @Autowired
     private UserRolesService userRolesService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<UserRoles> create(@RequestBody UserRoles userroles) {
         UserRoles u = userRolesService.save(userroles);
         return ResponseEntity.ok(u);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<UserRoles> update(@PathVariable int id,@RequestBody UserRoles userroles){
         Optional<UserRoles> userRole = userRolesService.updateUser(id,userroles);
         return userRole.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<UserRoles> get(@PathVariable int id){
         Optional<UserRoles>  userRole = userRolesService.get(id);
@@ -38,7 +39,7 @@ public class UserRolesController {
         }
         else{return ResponseEntity.notFound().build();}
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public  ResponseEntity<Void> delete(@PathVariable int id){
         Optional<UserRoles>  userRole = userRolesService.get(id);
