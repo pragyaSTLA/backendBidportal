@@ -25,35 +25,35 @@ public class Form {
     private String priorityBid;
 
     @JsonProperty("ob_fy")
-    @Column(name = "ob_fy")
+    @Column(name = "ob_fy",nullable = false)
     private String obFy;
 
     @JsonProperty("ob_qtr")
-    @Column(name = "ob_qtr")
+    @Column(name = "ob_qtr",nullable = false)
     private String obQtr;
 
     @JsonProperty("ob_mmm")
-    @Column(name = "ob_mmm")
+    @Column(name = "ob_mmm",nullable = false)
     private String obMmm;
 
     @JsonProperty("priority")
-    @Column(name = "priority")
+    @Column(name = "priority",nullable = false)
     private String priority;
 
     @JsonProperty("opportunity")
-    @Column(name = "opportunity")
+    @Column(name = "opportunity",nullable = false)
     private String opportunity;
 
     @JsonProperty("opportunity_type")
-    @Column(name = "opportunity_type")
+    @Column(name = "opportunity_type",nullable = false)
     private String opportunityType;
 
     @JsonProperty("amount_inr_cr_max")
-    @Column(name = "amount_inr_cr_max")
+    @Column(name = "amount_inr_cr_max",nullable = false)
     private BigDecimal amountInrCrMax;
 
     @JsonProperty("amount_inr_cr_min")
-    @Column(name = "amount_inr_cr_min")
+    @Column(name = "amount_inr_cr_min",nullable = false)
     private BigDecimal amountInrCrMin;
 
     @JsonProperty("rev_in_ob_qtr")
@@ -65,11 +65,11 @@ public class Form {
     private BigDecimal revInObQtrPlus1;
 
     @JsonProperty("business_unit")
-    @Column(name = "business_unit")
+    @Column(name = "business_unit",nullable = false)
     private String businessUnit;
 
     @JsonProperty("industry_segment")
-    @Column(name = "industry_segment")
+    @Column(name = "industry_segment",nullable = false)
     private String industrySegment;
 
     @JsonProperty("primary_offering_segment")
@@ -81,11 +81,11 @@ public class Form {
     private String secondaryOfferingSegment;
 
     @JsonProperty("part_quarter")
-    @Column(name = "part_quarter")
+    @Column(name = "part_quarter",nullable = false)
     private String partQuarter;
 
     @JsonProperty("part_month")
-    @Column(name = "part_month")
+    @Column(name = "part_month",nullable = false)
     private String partMonth;
 
     @JsonProperty("project_tenure_months")
@@ -105,7 +105,7 @@ public class Form {
     private Integer opexTenureMonths;
 
     @JsonProperty("deal_status")
-    @Column(name = "deal_status")
+    @Column(name = "deal_status",nullable = false)
     private String dealStatus;
 
     @JsonProperty("go_no_go_status")
@@ -143,11 +143,11 @@ public class Form {
     private String probability;
 
     @JsonProperty("sales_role")
-    @Column(name = "sales_role")
+    @Column(name = "sales_role",nullable = false)
     private String salesRole;
 
     @JsonProperty("primary_owner")
-    @Column(name = "primary_owner")
+    @Column(name = "primary_owner",nullable = false)
 //    @Pattern(regexp = "^[A-Za-z]+$", message = "primary Owner must contain only alphabetic characters")
     private String primaryOwner;
 
@@ -175,7 +175,7 @@ public class Form {
     private LocalDate releaseDate;
 
     @JsonProperty("submission_date")
-    @Column(name = "submission_date")
+    @Column(name = "submission_date",nullable = false)
     private LocalDate submissionDate;
 
     @JsonProperty("decision_date")

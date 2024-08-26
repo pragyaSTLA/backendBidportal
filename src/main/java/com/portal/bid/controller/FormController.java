@@ -73,9 +73,9 @@ public class FormController{
             @RequestParam(required = false) String customer,
             @RequestParam(required = false) BigDecimal deal_value_min,
             @RequestParam(required = false) BigDecimal deal_value_max) {
-        if(end_date!=null){
-//                 System.out.println(end_date);
-        }
+//        if(end_date!=null){
+////                 System.out.println(end_date);
+//        }
 
 
         List<Form> filteredOpportunities = opportunityService.getFilteredOpportunities(

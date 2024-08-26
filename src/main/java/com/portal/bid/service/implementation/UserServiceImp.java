@@ -1,5 +1,6 @@
 package com.portal.bid.service.implementation;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.portal.bid.entity.User;
 import com.portal.bid.repository.UserRepository;
@@ -24,6 +25,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User createUser(User user) {
+
         String encodedPassword = passwordEncoder.encode(user.getPasswordHash());
         user.setPasswordHash(encodedPassword);
 
@@ -40,8 +42,6 @@ public class UserServiceImp implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
-
     @Override
     public Optional<User> updateUser(Long id, User userDetails) {
         return userRepository.findById(id).map(user -> {
@@ -61,22 +61,21 @@ public class UserServiceImp implements UserService {
             return userRepository.save(user);
         });
     }
-
-
-
     public void loginUser(String email, String plainPassword,User u) {
         // Retrieve the user by email from the database
         User storedUser = userRepository.findByEmail(email);
         System.out.println(storedUser); // Logs the user object
 
+        if ("INACTIVE".equals(storedUser.getStatus().name())) {
+            System.out.println("user is inactive");
+            throw new DisabledException("User is inactive and cannot log in.");
+        }
         // Check if the user exists
         if (storedUser == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
         String encodedPassword = passwordEncoder.encode(u.getPasswordHash());
 //        user.setPasswordHash(encodedPassword);
-
-        // Verify the password
         System.out.println(encodedPassword + " " + storedUser.getPasswordHash());
         System.out.println(plainPassword+ " " + storedUser.getPasswordHash());
 
@@ -88,7 +87,6 @@ public class UserServiceImp implements UserService {
             System.out.println(plainPassword + " " + storedUser.getPasswordHash());
             throw new BadCredentialsException("Invalid password");
         }
-
         // Proceed with additional login steps if necessary
     }
 }

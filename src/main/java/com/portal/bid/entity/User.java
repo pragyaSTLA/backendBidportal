@@ -1,6 +1,10 @@
 package com.portal.bid.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.sql.Timestamp;
 
@@ -12,19 +16,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "employee_id", nullable = false)
+    @Column(name = "employee_id")
     private int employeeId;
 
-    @Column(name = "first_name", nullable = false, length = 255)
+    @Column(name = "first_name", length = 255)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 255)
+    @Column(name = "last_name", length = 255)
     private String lastName;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email")
+    @Email(message = "Invalid email format", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
-    @Column(name = "mobile", nullable = false, length = 20)
+    @Column(name = "mobile", length = 20)
     private String mobile;
 
     @Column(name = "department_id")
@@ -34,16 +39,16 @@ public class User {
 //    @Enumerated(EnumType.STRING)
 //    private Role role;
 
-    @Column(name = "password_hash", nullable = false, length = 255)
+    @Column(name = "password_hash", length = 255)
     private String passwordHash;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
