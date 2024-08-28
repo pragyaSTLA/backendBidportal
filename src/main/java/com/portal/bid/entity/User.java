@@ -25,7 +25,7 @@ public class User {
     @Column(name = "last_name", length = 255)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     @Email(message = "Invalid email format", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
@@ -145,6 +145,8 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+
 
     public enum Status {
         ACTIVE, INACTIVE

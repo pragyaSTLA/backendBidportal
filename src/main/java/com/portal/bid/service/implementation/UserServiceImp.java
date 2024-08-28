@@ -1,15 +1,16 @@
 package com.portal.bid.service.implementation;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.portal.bid.entity.User;
 import com.portal.bid.repository.UserRepository;
 import com.portal.bid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,49 @@ public class UserServiceImp implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
+        }
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPasswordHash(),
+                new ArrayList<>()
+        );
+    }
+//
+//    public boolean emailExists(String email) {
+//        User user = userRepository.findByEmail(email);
+//        return user != null;
+//    }
+
+    @Override
+    public Long saveUser(User user) {
+        // Check if email already exists
+//        if (emailExists(user.getEmail())) {
+//            System.out.print("pragya");
+//            throw new IllegalArgumentException("Email already exists.");
+//        }
+//        System.out.print(user.getEmail()+" "+user.getPasswordHash());
+
+        // Encode password before saving to DB
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+        return userRepository.save(user).getId();
+    }
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+//    @Override
+//    public Long saveUser(User user) {
+//
+//        //Encode password before saving to DB
+//        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+//        return userRepository.save(user).getId();
+//    }
 
     @Override
     public User createUser(User user) {
