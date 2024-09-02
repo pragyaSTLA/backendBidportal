@@ -3,6 +3,7 @@ package com.portal.bid.service;
 import com.portal.bid.entity.Permissions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PermissionsService {
@@ -11,4 +12,6 @@ public interface PermissionsService {
     Permissions createPermission(Permissions permission);
     Permissions updatePermission(int id, Permissions permission);
     boolean deletePermission(int id);
+
+//    Map<String, String> loadPermissionEndpointMap();
 }

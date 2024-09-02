@@ -1,4 +1,5 @@
 package com.portal.bid.service.implementation;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,6 @@ public class UserServiceImp implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByEmail(username);
@@ -36,44 +36,19 @@ public class UserServiceImp implements UserService {
                 new ArrayList<>()
         );
     }
-//
-//    public boolean emailExists(String email) {
-//        User user = userRepository.findByEmail(email);
-//        return user != null;
-//    }
 
     @Override
     public Long saveUser(User user) {
-        // Check if email already exists
-//        if (emailExists(user.getEmail())) {
-//            System.out.print("pragya");
-//            throw new IllegalArgumentException("Email already exists.");
-//        }
-//        System.out.print(user.getEmail()+" "+user.getPasswordHash());
-
-        // Encode password before saving to DB
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new IllegalArgumentException("Email already exists.");
+        }
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         return userRepository.save(user).getId();
     }
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-//    @Override
-//    public Long saveUser(User user) {
-//
-//        //Encode password before saving to DB
-//        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
-//        return userRepository.save(user).getId();
-//    }
 
     @Override
     public User createUser(User user) {
-
-        String encodedPassword = passwordEncoder.encode(user.getPasswordHash());
-        user.setPasswordHash(encodedPassword);
-
-        // Save the user to the repository
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         return userRepository.save(user);
     }
 
@@ -86,6 +61,7 @@ public class UserServiceImp implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     @Override
     public Optional<User> updateUser(Long id, User userDetails) {
         return userRepository.findById(id).map(user -> {
@@ -95,40 +71,29 @@ public class UserServiceImp implements UserService {
             user.setEmail(userDetails.getEmail());
             user.setMobile(userDetails.getMobile());
             user.setDepartmentId(userDetails.getDepartmentId());
-//            user.setRole(userDetails.getRole());
             user.setStatus(userDetails.getStatus());
-            // Only update the password if a new password is provided
             if (userDetails.getPasswordHash() != null && !userDetails.getPasswordHash().isEmpty()) {
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 user.setPasswordHash(passwordEncoder.encode(userDetails.getPasswordHash()));
             }
             return userRepository.save(user);
         });
     }
-    public void loginUser(String email, String plainPassword,User u) {
-        // Retrieve the user by email from the database
-        User storedUser = userRepository.findByEmail(email);
-        System.out.println(storedUser); // Logs the user object
 
-        if ("INACTIVE".equals(storedUser.getStatus().name())) {
-            System.out.println("user is inactive");
-            throw new DisabledException("User is inactive and cannot log in.");
-        }
-        // Check if the user exists
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void loginUser(String email, String plainPassword, User u) {
+        User storedUser = userRepository.findByEmail(email);
         if (storedUser == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-        String encodedPassword = passwordEncoder.encode(u.getPasswordHash());
-//        user.setPasswordHash(encodedPassword);
-        System.out.println(encodedPassword + " " + storedUser.getPasswordHash());
-        System.out.println(plainPassword+ " " + storedUser.getPasswordHash());
-
-
-        if (!passwordEncoder.matches(encodedPassword, storedUser.getPasswordHash())) {
-            System.out.println("nbdfvddfkj");
+        if ("INACTIVE".equals(storedUser.getStatus().name())) {
+            throw new DisabledException("User is inactive and cannot log in.");
         }
+
         if (!passwordEncoder.matches(plainPassword, storedUser.getPasswordHash())) {
-            System.out.println(plainPassword + " " + storedUser.getPasswordHash());
             throw new BadCredentialsException("Invalid password");
         }
         // Proceed with additional login steps if necessary

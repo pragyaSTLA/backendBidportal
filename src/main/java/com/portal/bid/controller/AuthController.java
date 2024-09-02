@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import com.portal.bid.entity.User;
 import com.portal.bid.entity.UserRequest;
 import com.portal.bid.entity.UserResponse;
+import com.portal.bid.repository.RolesPermissionRepo;
+import com.portal.bid.repository.UserRoleRepo;
 import com.portal.bid.service.UserService;
 import com.portal.bid.util.JWTUtil;
 import jakarta.validation.ConstraintViolationException;
@@ -80,7 +82,7 @@ public class AuthController {
 
     @PostMapping("/loginUser")
     public ResponseEntity<UserResponse> login(@RequestBody UserRequest request) {
-        System.out.println("Received login request: " + request);
+//        System.out.println("Received login request: " + request);
 
         // Extract username and password from the request
         String username = request.getUsername();

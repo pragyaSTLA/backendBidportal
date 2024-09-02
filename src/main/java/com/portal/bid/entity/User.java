@@ -5,12 +5,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

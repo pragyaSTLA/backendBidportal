@@ -1,12 +1,15 @@
-package com.portal.bid.service;
+package com.portal.bid.service.implementation;
 
 import com.portal.bid.entity.Permissions;
 import com.portal.bid.repository.PermissionsRepository;
+import com.portal.bid.service.PermissionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PermissionsServiceImpl implements PermissionsService {
@@ -64,4 +67,13 @@ public class PermissionsServiceImpl implements PermissionsService {
         }
         return false;
     }
+
+//    @Override
+//    public Map<String, String> loadPermissionEndpointMap() {
+//        List<Permissions> permissions = permissionsRepository.findAll();
+//
+//        // Convert the list of permissions to a map
+//        return permissions.stream()
+//                .collect(Collectors.toMap(Permissions::getPermission_name, Permissions::getEndpoint));
+//    }
 }

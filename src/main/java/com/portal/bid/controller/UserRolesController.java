@@ -19,6 +19,7 @@ public class UserRolesController {
     //    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<UserRoles> create(@RequestBody UserRoles userroles) {
+        System.out.println("in response entiy");
         UserRoles u = userRolesService.save(userroles);
         return ResponseEntity.ok(u);
     }
