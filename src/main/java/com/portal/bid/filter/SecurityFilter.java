@@ -1,6 +1,7 @@
 package com.portal.bid.filter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portal.bid.config.PermissionConfig;
-import com.portal.bid.entity.User;
 import com.portal.bid.security.CustomUserDetails;
-import com.portal.bid.service.*;
+import com.portal.bid.service.UserRolePermissionService;
 import com.portal.bid.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,28 +30,38 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTUtil util;
+
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Autowired
     private UserRolePermissionService userRolePermissionService;
 
     @Autowired
-    private UserRolesService userRolesService;
-
-
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
     private PermissionConfig permissionConfig;
 
-    private Map<String, String> permissionEndpointMap;
+    private Map<String, List<String>> permissionEndpointMap;
+
     @Autowired
     public SecurityFilter(PermissionConfig permissionConfig) {
         this.permissionEndpointMap = permissionConfig.permissionEndpointMap();
     }
 
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+//
+//    }
+
+    // Check if the user has permission for the HTTP method
+    private boolean hasPermissionForMethod(Set<String> permissions, String httpMethod) {
+        for (String permission : permissions) {
+            List<String> allowedMethods = permissionEndpointMap.get(permission);
+            if (allowedMethods != null && allowedMethods.contains(httpMethod)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws jakarta.servlet.ServletException, IOException {
@@ -93,28 +103,24 @@ public class SecurityFilter extends OncePerRequestFilter {
             CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
             System.out.println("User is authenticated: " + user);
 
-            // Bypass permission check for the specific user
+            // Bypass permission check for a specific user
             if ("pragya.dechalwal@gmail.com".equals(user.getUsername())) {
                 System.out.println("Bypassing permission check for user: " + user.getUsername());
                 filterChain.doFilter(request, response);  // Proceed with the filter chain
                 return;
             }
 
-//            // Fetch user roles
-//            Set<Integer>  userRoles = userRolesService.getRolesForUser(user.getId());
-//            //Fetch roles permission
-//
-            //after that store it in userpermssion
+            // Fetch user permissions
             Set<String> userPermissions = userRolePermissionService.getPermissionsForUser(user.getId());
             System.out.println("User permissions: " + userPermissions);
 
-            // Get the method and URI
-            String methodAndUri = request.getMethod() + ":" + request.getRequestURI();
-            System.out.println("Request method and URI: " + methodAndUri);
+            // Get the HTTP method of the request
+            String httpMethod = request.getMethod();
+            System.out.println("Request method: " + httpMethod);
 
-            // Implement logic to check permissions against the current request
-            if (!hasPermissionForResource(userPermissions, methodAndUri)) {
-                System.out.println("User does not have permission for resource");
+            // Check permissions against the HTTP method
+            if (!hasPermissionForMethod(userPermissions, httpMethod)) {
+                System.out.println("User does not have permission for method: " + httpMethod);
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.getWriter().write("You don't have permission to access this resource.");
                 return;
@@ -126,48 +132,5 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
         System.out.println("Filter chain processed");
     }
-
-
-    private boolean hasPermissionForResource(Set<String> permissions, String methodAndUri) {
-        for (String permission : permissions) {
-            String mappedUri = permissionEndpointMap.get(permission);
-            System.out.println("permission "+permission+" mappedURI "+mappedUri);
-            if (mappedUri != null && matchesUriPattern(methodAndUri, mappedUri)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean matchesUriPattern(String requestUri, String mappedUri) {
-        // Split URIs into method and path
-        String[] requestParts = requestUri.split(":", 2);
-        String[] mappedParts = mappedUri.split(":", 2);
-//        for(int i =0;i<requestParts.length;i++){
-//            System.out.println(requestUri +" pragya "+ mappedUri);
-//            System.out.println(mappedParts[i]);
-//        }
-
-        if (requestParts.length != 2 || mappedParts.length != 2) {
-            return false;
-        }
-
-        String requestPath = requestParts[1];
-        String mappedPath = mappedParts[1];
-
-        // Check if the HTTP methods match
-        if (!requestParts[0].equals(mappedParts[0])) {
-//            System.out.println(requestParts[0]+" "+mappedParts[0]);
-            return false;
-        }
-
-
-        // Replace variable segments in paths with a regex pattern
-        String regexPath = mappedPath.replaceAll("\\{[^/]+\\}", "[^/]+");
-
-        // Match the request path against the regex pattern
-        return requestPath.matches(regexPath);
-    }
-
 }
 
