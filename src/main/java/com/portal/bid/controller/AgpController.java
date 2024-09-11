@@ -48,8 +48,8 @@ public class AgpController {
         if (agpOptional.isPresent()) {
             Agp agp = agpOptional.get();
 //            System.out.println("ispresent");
-            LocalDate financialYearStart = LocalDate.of(LocalDate.now().getYear(), Month.APRIL, 1);
-            LocalDate updateDeadline = financialYearStart.plusMonths(3);
+            LocalDate financialYearStart = LocalDate.of(LocalDate.now().getYear(), Month.FEBRUARY, 1);
+            LocalDate updateDeadline = financialYearStart.plusMonths(1);
             if (LocalDate.now().isAfter(updateDeadline)) {
 //                System.out.println("date is agee");
                 HttpHeaders headers = new HttpHeaders();
